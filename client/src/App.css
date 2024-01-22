@@ -3,14 +3,22 @@
 .form__input-container {
   width: 100%;
   padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  cursor: pointer;
+  background-color: var(--input-bg);
   border: 1px solid var(--accent-blue);
   border-radius: 1rem;
+  overflow: hidden;
+}
+
+.form__input {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  background-color: var(--input-bg);
 }
 
 .form__input-container input {
@@ -27,6 +35,15 @@
   font-size: 2.5rem !important;
   color: var(--accent-blue);
   background-color: inherit;
+}
+
+.--auth-error {
+  width: 80%;
+  color: var(--error);
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: center;
+  border-top: 1px solid var(--accent-blue);
 }
 
 /* Auth Btn */

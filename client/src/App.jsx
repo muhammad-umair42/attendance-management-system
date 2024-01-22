@@ -8,7 +8,6 @@ import './App.css';
 import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import RecoverAccountPage from './pages/Auth/RecoverAccountPage/RecoverAccountPage';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
   const isLoggedIn = false;
