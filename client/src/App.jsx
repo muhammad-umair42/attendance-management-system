@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
+import './App.css';
 import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import RecoverAccountPage from './pages/Auth/RecoverAccountPage/RecoverAccountPage';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';

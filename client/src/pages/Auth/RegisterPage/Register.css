@@ -1,0 +1,75 @@
+.register {
+  padding: 4rem;
+  gap: 1rem;
+}
+
+.register,
+.register__form,
+.register__form form,
+.register__other-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.register__form {
+  padding: 1.5rem;
+  flex: 2;
+  height: 100%;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 2rem;
+  border: 1px solid var(--accent-blue);
+  border-radius: 1rem;
+  background-color: var(--light-blue);
+}
+
+.register__form h2 {
+  width: 100%;
+}
+
+.register__form form {
+  width: 80%;
+
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.register__coverImage {
+  flex: 3;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.register__coverImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.register__btn {
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.register__other-links {
+  gap: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .register {
+    flex-direction: column-reverse;
+  }
+  .register__coverImage,
+  .register__form {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .register {
+    padding: 0;
+  }
+}
