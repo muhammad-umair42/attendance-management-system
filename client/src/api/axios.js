@@ -1,6 +1,6 @@
 import axios from 'axios';
-// import { toast } from 'react-toastify';
-import { apiDataHandler } from './dataController';
+import { toast } from 'react-toastify';
+import { apiDataHandler } from './apiDatahandling';
 
 //Axios file instance for JSON DATA Requests
 const instance = axios.create({
@@ -51,15 +51,15 @@ export const makeApiRequest = async ({
   } catch (error) {
     //Error Mesage is in HTML format so we need to trim only message
     console.log(error);
-    // const parser = new DOMParser();
-    // const doc = parser.parseFromString(error?.response?.data, 'text/html');
-    // const errorUnTrimmedMessage = doc.body.textContent.trim();
-    // const regex = /Error: (.+?)\s+at/;
-    // const match = regex.exec(errorUnTrimmedMessage);
-    // const errorMessage = match ? match[1] : 'Could not connect to server';
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(error?.response?.data, 'text/html');
+    const errorUnTrimmedMessage = doc.body.textContent.trim();
+    const regex = /Error: (.+?)\s+at/;
+    const match = regex.exec(errorUnTrimmedMessage);
+    const errorMessage = match ? match[1] : 'Could not connect to server';
 
-    // //SHOWING ERROR
-    // toast.error(errorMessage);
+    //SHOWING ERROR
+    toast.error(errorMessage);
     return { success, resData };
   }
 };

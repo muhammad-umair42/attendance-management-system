@@ -1,5 +1,10 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 const UserHomePage = () => {
-  return <div></div>;
+  const user = useSelector(state => state?.user);
+  useEffect(() => {}, []);
+  return <div>user</div>;
 };
 
 export default UserHomePage;

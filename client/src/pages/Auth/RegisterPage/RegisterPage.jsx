@@ -1,13 +1,16 @@
+/* eslint-disable no-unused-vars */
 import BadgeIcon from '@mui/icons-material/Badge';
 import KeyIcon from '@mui/icons-material/Key';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import RegisterImg from '../../../../assets/Register Image.png';
+import makeApiRequest from '../../../api/axios';
 import './Register.css';
 const RegisterPage = () => {
-  //register info and errors state
+  //states for errors and info
   const [errors, setErrors] = useState({
     fullName: false,
     username: false,
@@ -25,28 +28,70 @@ const RegisterPage = () => {
   });
   const [cpassword, setCpassword] = useState('');
 
+  //other variables and states
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   //Handle Form Submit
-  const handleRegisterSubmit = e => {
+  const handleRegisterSubmit = async e => {
     e.preventDefault();
+    setIsLoading(true);
+
     //Validating
-    setErrors(prevErrors => ({
-      ...prevErrors,
-      fullName: registerInfo.fullName === '',
-      username: registerInfo.username === '',
-      key: registerInfo.key === '',
-      password: registerInfo.password === '',
-      cpassword: cpassword === '',
-      samepassword: registerInfo.password !== cpassword || cpassword === '',
-    }));
+    if (
+      registerInfo.fullName === '' ||
+      registerInfo.username === '' ||
+      registerInfo.key === '' ||
+      registerInfo.password === '' ||
+      cpassword === '' ||
+      registerInfo.password !== cpassword
+    ) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        fullName: registerInfo.fullName === '',
+        username: registerInfo.username === '',
+        key: registerInfo.key === '',
+        password: registerInfo.password === '',
+        cpassword: cpassword === '',
+        samepassword: registerInfo.password !== cpassword || cpassword === '',
+      }));
+      return;
+    }
+
+    //Making request
+    const reqParams = {
+      method: 'post',
+      reqType: 'register',
+      url: '/auth/register',
+      reqData: registerInfo,
+    };
+
+    const { success, reqData } = await toast.promise(
+      makeApiRequest(reqParams),
+      {
+        pending: 'Loading',
+      },
+    );
+
+    if (success) {
+      setIsLoading(false);
+      toast.success('Registered Successfully');
+      return navigate('/login');
+    } else {
+      setIsLoading(false);
+      return;
+    }
   };
   return (
     <section className="register">
       <div className="register__form">
         <h2>Register</h2>
 
+        {/*-------------------- Form---------------- */}
         <form onSubmit={handleRegisterSubmit}>
           <div className="form__input-container">
             <div className="form__input">
+              {/* Inputs */}
               <input
                 type="text"
                 placeholder="Enter Full Name"
@@ -54,6 +99,7 @@ const RegisterPage = () => {
                 onChange={e =>
                   setRegisterInfo({ ...registerInfo, fullName: e.target.value })
                 }
+                autoComplete="fullName"
               />
               <BadgeIcon className="input-container__icon" />
             </div>
@@ -71,6 +117,7 @@ const RegisterPage = () => {
                 onChange={e =>
                   setRegisterInfo({ ...registerInfo, username: e.target.value })
                 }
+                autoComplete="username"
               />
               <PersonIcon className="input-container__icon" />
             </div>
@@ -88,6 +135,7 @@ const RegisterPage = () => {
                 onChange={e =>
                   setRegisterInfo({ ...registerInfo, key: e.target.value })
                 }
+                autoComplete="key"
               />
               <KeyIcon className="input-container__icon" />
             </div>
@@ -105,6 +153,7 @@ const RegisterPage = () => {
                 onChange={e =>
                   setRegisterInfo({ ...registerInfo, password: e.target.value })
                 }
+                autoComplete="password"
               />
               <LockIcon className="input-container__icon" />
             </div>
@@ -120,6 +169,7 @@ const RegisterPage = () => {
                 placeholder="Confirm Password"
                 value={cpassword}
                 onChange={e => setCpassword(e.target.value)}
+                autoComplete="confirmpassword"
               />
               <LockIcon className="input-container__icon" />
             </div>
@@ -130,11 +180,12 @@ const RegisterPage = () => {
               <div className="--auth-error">Password do not matched</div>
             )}
           </div>
-
+          {/*------------ Submit Btn --------------*/}
           <button className="--auth-btn" type="submit">
             Register Now
           </button>
         </form>
+        {/* -----------------Other Links-------------- */}
         <div className="register__other-links">
           <Link to={'/login'} className="--auth-link">
             Login

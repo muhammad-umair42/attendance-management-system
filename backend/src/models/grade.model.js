@@ -1,0 +1,37 @@
+import mongoose from 'mongoose';
+
+const gradeModel = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    gradeHistory: [
+      {
+        month: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        grade: {
+          type: String,
+          required: true,
+          trim: true,
+          enum: ['a', 'b', 'c', 'd'],
+        },
+        leaves: {
+          type: Number,
+          required: true,
+        },
+        presents: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+  },
+  { timestamps: true },
+);
+
+export const Grade = mongoose.model('Grade', gradeModel);

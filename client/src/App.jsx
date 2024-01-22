@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
   Navigate,
   Route,
@@ -5,18 +6,31 @@ import {
   Routes,
 } from 'react-router-dom';
 import './App.css';
+import AdminHomePage from './pages/Admin/AdminHomePage/AdminHomePage';
 import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import RecoverAccountPage from './pages/Auth/RecoverAccountPage/RecoverAccountPage';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';
+import UserHomePage from './pages/User/UserHomePage/UserHomePage';
 
 const App = () => {
-  const isLoggedIn = false;
-
+  const user = useSelector(state => state?.user);
   return (
     <Router>
       <Routes>
-        {isLoggedIn ? (
-          <></>
+        {user ? (
+          <>
+            {user.isAdmin ? (
+              <>
+                <Route path="/" element={<AdminHomePage />} />
+                <Route path="*" element={<Navigate to={'/'} />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<UserHomePage />} />
+                <Route path="*" element={<Navigate to={'/'} />} />
+              </>
+            )}
+          </>
         ) : (
           <>
             <Route path="/login" element={<LoginPage />} />

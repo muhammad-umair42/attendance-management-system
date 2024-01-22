@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import LockIcon from '@mui/icons-material/Lock';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import RecoverAccountImage from '../../../../assets/forgetpassword.png';
+import { makeApiRequest } from './../../../api/axios';
 import './RecoverAccountPage.css';
 const RecoverAccountPage = () => {
   //recover info and errors state
@@ -19,8 +22,11 @@ const RecoverAccountPage = () => {
   });
   const [cpassword, setCpassword] = useState('');
 
+  //other variables
+  const navigate = useNavigate();
+
   //handle recover submit
-  const handleRecoverSubmit = e => {
+  const handleRecoverSubmit = async e => {
     e.preventDefault();
 
     //check if all fields are filled
@@ -39,6 +45,26 @@ const RecoverAccountPage = () => {
         cpassword: cpassword === '',
         samePassword: recoverInfo.password !== cpassword,
       }));
+      return;
+    }
+
+    //send recover request
+    const reqParams = {
+      method: 'post',
+      reqType: 'recoveraccount',
+      url: '/auth/recoveraccount',
+      reqData: recoverInfo,
+    };
+
+    const { success, resData } = await toast.promise(
+      makeApiRequest(reqParams),
+      { pending: 'Loading' },
+    );
+
+    if (success) {
+      toast.success('Account Recoverd');
+      return navigate('/login');
+    } else {
       return;
     }
   };
@@ -62,6 +88,7 @@ const RecoverAccountPage = () => {
                 onChange={e =>
                   setRecoverInfo({ ...recoverInfo, key: e.target.value })
                 }
+                autoComplete="key"
               />
               <LockIcon className="input-container__icon" />
             </div>
@@ -79,6 +106,7 @@ const RecoverAccountPage = () => {
                 onChange={e =>
                   setRecoverInfo({ ...recoverInfo, username: e.target.value })
                 }
+                autoComplete="username"
               />
               <LockIcon className="input-container__icon" />
             </div>
@@ -96,6 +124,7 @@ const RecoverAccountPage = () => {
                 onChange={e =>
                   setRecoverInfo({ ...recoverInfo, password: e.target.value })
                 }
+                autoComplete="password"
               />
               <LockIcon className="input-container__icon" />
             </div>
@@ -111,6 +140,7 @@ const RecoverAccountPage = () => {
                 placeholder="Confirm New Password"
                 value={recoverInfo.cpassword}
                 onChange={e => setCpassword(e.target.value)}
+                autoComplete="password"
               />
               <LockIcon className="input-container__icon" />
             </div>
