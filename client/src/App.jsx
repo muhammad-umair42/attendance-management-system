@@ -11,6 +11,7 @@ import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import RecoverAccountPage from './pages/Auth/RecoverAccountPage/RecoverAccountPage';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';
 import UserHomePage from './pages/User/UserHomePage/UserHomePage';
+import UserAttendancePage from './pages/User/userAttendancePage/UserAttendancePage';
 
 const App = () => {
   const user = useSelector(state => state?.user);
@@ -27,6 +28,10 @@ const App = () => {
             ) : (
               <>
                 <Route path="/" element={<UserHomePage />} />
+                <Route
+                  path="/user-attendance"
+                  element={<UserAttendancePage />}
+                />
                 <Route path="*" element={<Navigate to={'/'} />} />
               </>
             )}

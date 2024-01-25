@@ -9,10 +9,11 @@ const gradeModel = new mongoose.Schema(
     },
     gradeHistory: [
       {
-        month: {
-          type: String,
+        date: {
+          type: Date,
           required: true,
           trim: true,
+          default: Date.now,
         },
         grade: {
           type: String,

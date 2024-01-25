@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 export const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
-      'mongodb+srv://umair42:Riamu456.@cluster0.ceckkpa.mongodb.net/AMS',
+      `${process.env.MONGO_URI}`,
     );
 
     console.log('\nMongoDB connected: ', connectionInstance.connection.host);

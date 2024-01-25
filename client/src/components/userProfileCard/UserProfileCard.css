@@ -1,0 +1,154 @@
+.user-profile__card,
+.card__profile-pic,
+.profile-pic__btns,
+.user__card-details,
+.user__card-passwords,
+.card__details-input-box,
+.card__password-input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile__card {
+  padding: 2rem;
+  width: max-content;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 1rem;
+  background-color: var(--light-blue);
+}
+
+.card__profile-pic {
+  padding: 1rem;
+  gap: 2rem;
+  border-radius: 1rem;
+  transition: all 0.25s ease-in;
+}
+
+.user__card-details:hover,
+.user__card-passwords:hover {
+  background-color: var(--primary-blue);
+}
+
+.card__profile-pic img {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  border: 1px solid var(--accent-blue);
+}
+
+.profile-pic__btns {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-pic__btn,
+.profile-pic__btn-update,
+.user__card-passwords__btn,
+.user__card-details__btn {
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--dark-blue);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.25s ease-in;
+}
+
+.profile-pic__btn:hover,
+.user__card-passwords__btn:hover,
+.user__card-details__btn:hover {
+  background-color: var(--orange);
+}
+
+.profile-pic__btn-update {
+  background-color: var(--orange-light);
+  color: var(--dark-blue);
+}
+
+.profile-pic__btn-update:hover {
+  background-color: var(--orange);
+  color: white;
+}
+
+.user__card-details,
+.user__card-passwords {
+  width: 100%;
+
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  transition: all 0.25s ease-in;
+  border-radius: 1rem;
+}
+
+.card__details-input-box,
+.card__password-input-box {
+  width: 100%;
+  padding: 0.5rem;
+
+  justify-content: flex-start;
+  cursor: pointer;
+  background-color: var(--input-bg);
+  border: 1px solid var(--accent-blue);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.card__details-input-box span,
+.card__password-input-box span {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.card__details-input,
+.card__password-input {
+  width: 100%;
+  padding: 0.8rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  background-color: transparent;
+  color: rgb(125, 123, 123);
+}
+
+.card__details-input:focus {
+  color: black;
+}
+
+.card__password-input-box {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 900px) {
+  .user-profile__card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .user-profile__card {
+    padding: 0;
+  }
+  .card__profile-pic {
+    flex-direction: column;
+  }
+  .card__password-input-box,
+  .card__details-input-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

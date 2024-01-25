@@ -1,27 +1,28 @@
 import { LoginHistory } from '../models/loginHistory.model.js';
 import { ApiError } from './apiError.js';
+import { generateTodayDates } from './generateTodayDates.js';
 
 export const handleLoginHistory = async user => {
   try {
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayEnd = new Date();
-    todayEnd.setHours(23, 59, 59, 999);
+    const { todayStart, todayEnd, currentDate } = generateTodayDates();
     const todayLoginData = await LoginHistory.findOne({
       date: {
         $gte: todayStart,
         $lte: todayEnd,
       },
     });
+
     if (!todayLoginData) {
       const loginHistory = await LoginHistory.create({
         date: todayStart,
         history: [
           {
             user: user._id,
+            time: currentDate,
           },
         ],
       });
+
       if (!loginHistory) {
         throw new ApiError(500, 'Login History Creation Failed');
       }
@@ -29,10 +30,13 @@ export const handleLoginHistory = async user => {
     } else {
       const loginHistory = await LoginHistory.findOneAndUpdate(
         {
-          date: todayStart,
+          date: {
+            $gte: todayStart,
+            $lte: todayEnd,
+          },
         },
         {
-          $push: { history: { user: user._id } },
+          $push: { history: { user: user._id, time: currentDate } },
         },
         { new: true },
       );

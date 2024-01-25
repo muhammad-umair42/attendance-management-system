@@ -65,16 +65,22 @@ userSchema.pre('save', async function (next) {
 //creating all the Documents Linked to the User
 userSchema.pre('save', async function (next) {
   //Attendance
-  const attendance = await Attendance.create({ user: this._id });
-  this.attendanceHistory = attendance._id;
+  if (!this.attendanceHistory) {
+    const attendance = await Attendance.create({ user: this._id });
+    this.attendanceHistory = attendance._id;
+  }
 
   //Leave
-  const leave = await Leave.create({ user: this._id });
-  this.leaveHistory = leave._id;
+  if (!this.leaveHistory) {
+    const leave = await Leave.create({ user: this._id });
+    this.leaveHistory = leave._id;
+  }
 
   //Grade
-  const grade = await Grade.create({ user: this._id });
-  this.gradeHistory = grade._id;
+  if (!this.gradeHistory) {
+    const grade = await Grade.create({ user: this._id });
+    this.gradeHistory = grade._id;
+  }
 
   next();
 });

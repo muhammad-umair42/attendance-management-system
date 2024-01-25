@@ -3,6 +3,7 @@ import { ApiError } from '../utils/apiError.js';
 import { ApiResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { handleLoginHistory } from '../utils/createLoginHistory.js';
+import { generateTodayDates } from '../utils/generateTodayDates.js';
 import { LoginHistory } from './../models/loginHistory.model.js';
 export const registerUser = asyncHandler(async (req, res) => {
   const { fullName, username, key, password } = req.body;
@@ -80,7 +81,6 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'User Not Found');
   }
   //Checking Password
-  console.log(user);
   const isMatch = await user.isPasswordCorrect(password);
 
   if (!isMatch) {
@@ -103,11 +103,9 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   //Sending Response
   // Calculate the time remaining until the end of the day
-  const now = new Date();
-  const endOfDay = new Date(now);
-  endOfDay.setHours(23, 59, 59, 999);
+  const { currentDate, todayStart, todayEnd } = generateTodayDates();
 
-  const timeRemaining = endOfDay.getTime() - now.getTime();
+  const timeRemaining = todayEnd.getTime() - currentDate.getTime();
 
   const cookieOptions = {
     maxAge: timeRemaining,
@@ -120,6 +118,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   res
     .status(201)
     .cookie('accessToken', accessToken, cookieOptions)
+    .cookie('loggedIn', true, { maxAge: timeRemaining })
     .json(
       new ApiResponse(
         201,
@@ -129,4 +128,14 @@ export const loginUser = asyncHandler(async (req, res) => {
         'Logged In',
       ),
     );
+});
+
+export const logoutUser = asyncHandler(async (req, res) => {
+  const user = req.user;
+
+  res
+    .status(200)
+    .clearCookie('accessToken')
+    .clearCookie('loggedIn')
+    .json(new ApiResponse(200, {}, 'Logged Out'));
 });
