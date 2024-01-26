@@ -6,12 +6,6 @@
 
 .user-profile__section,
 .user-home__dashboard,
-.grade-card__wrapper,
-.grade-card__grade,
-.grade-card__grade span:first-child,
-.grade-card__stats,
-.grade-card__stats-box,
-.box__div,
 .user-interactions,
 .user-interactions-btns {
   display: flex;
@@ -29,63 +23,6 @@
   flex: 3;
   justify-content: flex-start;
   flex-direction: column;
-}
-
-.user__grade-card {
-  width: 100%;
-  background-color: var(--light-blue);
-  border-radius: 1rem;
-}
-
-.grade-card__wrapper {
-  width: 100%;
-  padding: 1rem;
-  gap: 1rem;
-}
-
-.grade-card__grade {
-  flex: 1;
-  padding: 1rem;
-  flex-direction: column;
-  gap: 2rem;
-}
-.grade-card__grade span {
-  color: var(--dark-blue);
-  font-weight: 700;
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-}
-
-.grade-card__grade span:first-child {
-  font-size: 5rem;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  background-color: #ccdde6bf;
-  text-transform: capitalize;
-}
-
-.grade-card__stats {
-  flex: 2;
-  justify-content: flex-start;
-  gap: 2rem;
-}
-
-.grade-card__stats-box {
-  width: 100%;
-  flex-direction: column;
-  font-size: 1.2rem;
-  gap: 1rem;
-  font-weight: 600;
-  font-family: var(--font-heading);
-}
-
-.box__div {
-  background-color: var(--input-bg);
-  width: 100%;
-  justify-content: space-between;
-  padding: 1rem;
-  border-radius: 1rem;
 }
 
 .user-interactions {

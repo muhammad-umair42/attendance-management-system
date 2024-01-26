@@ -1,0 +1,24 @@
+.admin-attendances {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4rem;
+  gap: 4rem;
+}
+
+.admin__attendances-tableRow {
+  cursor: pointer;
+  transition: all 0.25s ease-in;
+}
+
+.admin__attendances-tableRow:hover {
+  background-color: var(--orange-light);
+}
+
+.attendances__table-cell {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--dark-blue);
+}

@@ -7,6 +7,11 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import AdminHomePage from './pages/Admin/AdminHomePage/AdminHomePage';
+import AttendancePage from './pages/Admin/AttendancesPage/AttendancePage';
+import SingleUserAttendancePage from './pages/Admin/AttendancesPage/UserAttendancePage/SingleUserAttendancePage';
+import GradePage from './pages/Admin/GradesPage/GradePage';
+import LeavesPage from './pages/Admin/LeavesPage/LeavesPage';
+import SystemReportPage from './pages/Admin/SystemReportPage/SystemReportPage';
 import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import RecoverAccountPage from './pages/Auth/RecoverAccountPage/RecoverAccountPage';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';
@@ -23,6 +28,15 @@ const App = () => {
             {user.isAdmin ? (
               <>
                 <Route path="/" element={<AdminHomePage />} />
+                <Route path="/attendances" element={<AttendancePage />} />
+                <Route path="/leaves" element={<LeavesPage />} />
+                <Route path="/systemreport" element={<SystemReportPage />} />
+                <Route path="/grades" element={<GradePage />} />
+                <Route
+                  path="attendance/:id"
+                  element={<SingleUserAttendancePage />}
+                />
+
                 <Route path="*" element={<Navigate to={'/'} />} />
               </>
             ) : (

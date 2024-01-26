@@ -1,0 +1,131 @@
+.user-attendance__admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
+  padding: 2rem;
+}
+.user-attendance__admin-pc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 2rem;
+}
+
+.user-attendance-table {
+  width: 100%;
+}
+
+.table-row {
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+.table-row:hover {
+  background-color: var(--orange);
+}
+
+.attendance-update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.attendance-update-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.attendance-update button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+
+.create-attendance {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.create-attendance-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+
+.create-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.create-date input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+
+.create-date button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease-in;
+}
+
+@media screen and (max-width: 768px) {
+  .user-attendance__admin {
+    padding: 1rem;
+  }
+  .user-attendance__admin-pc {
+    flex-direction: column;
+  }
+  .attendance-update {
+    width: 100%;
+  }
+  .attendance-update-details {
+    width: 100%;
+  }
+  .create-attendance {
+    width: 100%;
+  }
+  .create-date {
+    width: 100%;
+  }
+}

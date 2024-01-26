@@ -12,12 +12,12 @@ import { User } from './../models/user.model.js';
 
 import { asyncHandler } from './../utils/asyncHandler.js';
 import { generateTodayDates } from './../utils/generateTodayDates.js';
+
 export const userHomePageData = asyncHandler(async (req, res) => {
   const user = req.user;
   //var
   let userTodayAttendance = false;
   let userLeave = false;
-  let userGrade = false;
 
   //Getting Today Attendance
   //Setting Today Date
@@ -41,7 +41,6 @@ export const userHomePageData = asyncHandler(async (req, res) => {
         $lte: todayEnd,
       },
     }).select('leaveHistory');
-
     const unFormattedDate = new Date(ThisDayLeave?.leaveHistory[0]?.date);
     const month = new Intl.DateTimeFormat('en', { month: 'long' }).format(
       unFormattedDate,
@@ -67,60 +66,12 @@ export const userHomePageData = asyncHandler(async (req, res) => {
 
   //finding this months grade:
 
-  const startOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    1,
-  );
-  const endOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
-    0,
-    23,
-    59,
-    59,
-    999,
-  );
-
-  const thisMonthUserGrade = await Grade.findOne(
-    {
-      user: user._id,
-      'gradeHistory.date': {
-        $gte: startOfMonth,
-        $lte: endOfMonth,
-      },
-    },
-    { 'gradeHistory.$': 1 },
-  );
-
-  if (!thisMonthUserGrade) {
-    userGrade = false;
-  } else {
-    const unFormattedDate = new Date(thisMonthUserGrade?.gradeHistory[0]?.date);
-    const month = new Intl.DateTimeFormat('en', { month: 'long' }).format(
-      unFormattedDate,
-    );
-    const year = unFormattedDate.getFullYear();
-    const datePart = unFormattedDate.toISOString().split('T')[0];
-
-    const { grade, leaves, presents } = thisMonthUserGrade?.gradeHistory[0];
-
-    userGrade = {
-      grade,
-      leaves,
-      presents,
-      month,
-      year,
-      date: datePart,
-    };
-  }
-
   res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        { userTodayAttendance, userLeave, userGrade },
+        { userTodayAttendance, userLeave },
         'HomeData Fetched Successfully',
       ),
     );
@@ -218,6 +169,7 @@ export const userUpdatePassword = asyncHandler(async (req, res) => {
 export const userMarkAttendance = asyncHandler(async (req, res) => {
   const user = req.user;
 
+  // Checking if user is already marked for today If yes then Cancel the request
   const userAttendanceToday = await Attendance.findOne({
     user: user._id,
     'attendance.date': {
@@ -226,10 +178,13 @@ export const userMarkAttendance = asyncHandler(async (req, res) => {
     },
   });
 
+  //If user is already marked for today
   if (userAttendanceToday) {
     throw new ApiError(400, 'Attendance already marked for today');
   }
 
+  //If user is not marked for today
+  const { currentDate } = generateTodayDates();
   const attendance = await Attendance.findOneAndUpdate(
     {
       user: user._id,
@@ -237,7 +192,7 @@ export const userMarkAttendance = asyncHandler(async (req, res) => {
     {
       $push: {
         attendance: {
-          date: new Date(),
+          date: currentDate,
           isPresent: true,
           isLeaveSubmitted: false,
         },
@@ -262,9 +217,12 @@ export const userMarkAttendance = asyncHandler(async (req, res) => {
 export const userMarkLeave = asyncHandler(async (req, res) => {
   const user = req?.user;
   const { leaveMessage } = req?.body;
+
   if (!leaveMessage) {
     throw new ApiError(400, 'Leave Message is required');
   }
+
+  //If the exisitng leave exists then cancel the request
   const existingLeave = await Leave.findOne({
     user: user._id,
     'leaveHistory.date': {
@@ -277,12 +235,15 @@ export const userMarkLeave = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'Leave Already Marked');
   }
 
+  //Adding Leave
+  const { currentDate } = generateTodayDates();
   const markLeave = await Leave.findOneAndUpdate(
     { user: user._id },
     {
       $push: {
         leaveHistory: {
           leaveMessage: leaveMessage,
+          date: currentDate,
         },
       },
     },
@@ -313,6 +274,7 @@ export const userMarkLeave = asyncHandler(async (req, res) => {
     .status(201)
     .json(new ApiResponse(200, {}, 'Leave Submitted Successfully'));
 });
+
 export const userGetAttendance = asyncHandler(async (req, res) => {
   const user = req?.user;
 
