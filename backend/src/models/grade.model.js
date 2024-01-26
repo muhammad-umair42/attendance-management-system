@@ -12,8 +12,6 @@ const gradeModel = new mongoose.Schema(
         date: {
           type: Date,
           required: true,
-          trim: true,
-          default: Date.now,
         },
         grade: {
           type: String,

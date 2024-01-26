@@ -1,0 +1,67 @@
+.admin-navbar,
+.admin-btn,
+.admin-btns,
+.admin-link,
+.admin-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-navbar {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-blue);
+  justify-content: space-between;
+}
+
+.admin-btn {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  background-color: var(--interactive-blue);
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: whitesmoke;
+  border: 1px solid var(--accent-blue);
+  transition: all 0.15s ease-in;
+}
+
+.admin-btn:hover {
+  background-color: var(--orange);
+}
+
+.admin-links {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: var(--input-bg);
+  gap: 1rem;
+}
+
+.admin-link,
+.nav-active {
+  font-size: 1.4rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-family: var(--font-heading);
+  transition: all 0.25s ease-in;
+}
+
+.nav-active {
+  background-color: var(--light-blue);
+  color: black;
+}
+
+.admin-link:hover {
+  background-color: var(--orange);
+}
+
+@media screen and (max-width: 1000px) {
+  .admin-navbar {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

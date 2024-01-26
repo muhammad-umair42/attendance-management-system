@@ -5,6 +5,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { handleLoginHistory } from '../utils/createLoginHistory.js';
 import { generateTodayDates } from '../utils/generateTodayDates.js';
 import { LoginHistory } from './../models/loginHistory.model.js';
+
 export const registerUser = asyncHandler(async (req, res) => {
   const { fullName, username, key, password } = req.body;
   const securityKey = key;

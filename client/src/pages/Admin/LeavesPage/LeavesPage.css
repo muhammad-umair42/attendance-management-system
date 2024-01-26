@@ -1,0 +1,43 @@
+.all-leaves {
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.leave {
+  width: 100%;
+  background-color: var(--primary-blue);
+  cursor: pointer;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.leave:hover {
+  opacity: 0.8;
+}
+
+.change-leave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.change-leave button {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}

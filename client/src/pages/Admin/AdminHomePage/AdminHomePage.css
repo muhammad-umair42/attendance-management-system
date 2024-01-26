@@ -1,0 +1,29 @@
+.admin-home,
+.login-history,
+.admin-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-home {
+  gap: 1rem;
+  padding: 2rem;
+  align-items: flex-start;
+}
+
+.admin-profile {
+  width: 100%;
+  padding: 2rem;
+}
+
+.login-history {
+  width: 100%;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .admin-home {
+    flex-direction: column;
+  }
+}
